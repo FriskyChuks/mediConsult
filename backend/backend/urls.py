@@ -4,8 +4,10 @@ from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/orders/', include('orders.urls')),
-    path('api/accounts/', include('accounts.urls')),
+    path('orders/', include('orders.urls')),
+    path('items/', include('items.urls')),
+
+    path('accounts/', include('accounts.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     #     path('api/token/',
