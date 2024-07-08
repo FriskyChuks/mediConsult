@@ -15,7 +15,7 @@ class Clinician(models.Model):
     licence_expiry_date = models.DateField()
     licence_image = models.ImageField(
         upload_to='licence/', blank=True, null=True)
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.staff}"

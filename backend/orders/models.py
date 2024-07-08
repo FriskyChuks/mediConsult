@@ -11,6 +11,7 @@ class Order(models.Model):
     VAT = models.DecimalField(decimal_places=2, max_digits=12, default=00.00)
     order_date = models.DateTimeField()
     processing = models.BooleanField(default=False)
+    dispatch_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.customer} | {self.order_date}"
@@ -34,8 +35,6 @@ class Mode(models.Model):
 
 
 class Delivery(models.Model):
-    dispatch_status = models.BooleanField(default=False)
-    dispatch_date = models.DateField()
     mode = models.ForeignKey(Mode, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     delivery_status = models.BooleanField(default=False)
