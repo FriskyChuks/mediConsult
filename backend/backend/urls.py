@@ -7,6 +7,7 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
     path('items/', include('items.urls')),
     path('clinicians/', include('clinicians.urls')),
+    path('address/', include('addresses.urls')),
 
     path('accounts/', include('accounts.urls')),
     path('auth/', include('djoser.urls')),

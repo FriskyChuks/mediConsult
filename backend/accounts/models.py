@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 class CustomAccountManager(BaseUserManager):
 
-    def create_superuser(self, fullname, email, phone, password, **otherfields):
+    def create_superuser(self, firstname, lastname, email, phone, password, **otherfields):
         otherfields.setdefault('is_staff', True)
         otherfields.setdefault('is_superuser', True)
         otherfields.setdefault('is_active', True)
@@ -16,29 +16,24 @@ class CustomAccountManager(BaseUserManager):
         if otherfields.get('is_staff') is not True:
             raise ValueError('Superuser must be assigned to is_staff = True')
 
-        return self.create_user(fullname, email, phone, password, **otherfields)
+        return self.create_user(firstname, lastname, email, phone, password, **otherfields)
 
-    def create_user(self, fullname, email, phone, password, **otherfields):
+    def create_user(self, firstname, lastname, email, phone, password, **otherfields):
         if not email:
             raise ValueError(_('You must provide an email address'))
         email = self.normalize_email(email)
-        user = self.model(fullname=fullname, email=email, phone=phone, **otherfields)
+        user = self.model(firstname=firstname, lastname=lastname, email=email,
+                          phone=phone, **otherfields)
         user.set_password(password)
         user.save()
         return user
 
 
-class Category(models.Model):
-    title = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.title
-
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(_('email address'), unique=True)
-    fullname = models.CharField(max_length=150)
+    firstname = models.CharField(max_length=150)
+    lastname = models.CharField(max_length=150)
     phone = models.CharField(max_length=150, unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -48,7 +43,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['fullname', 'phone']
+    REQUIRED_FIELDS = ['firstname', 'lastname', 'phone']
 
     def __str__(self):
         return self.email

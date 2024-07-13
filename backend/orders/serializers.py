@@ -30,6 +30,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
 class DeliverySerializer(serializers.ModelSerializer):
     staff = serializers.SerializerMethodField(read_only=True)
+    delivery_mode = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Delivery
@@ -37,6 +38,9 @@ class DeliverySerializer(serializers.ModelSerializer):
 
     def get_staff(self, obj):
         return obj.confirmed_by.fullname
+
+    def get_delivery_mode(self, obj):
+        return obj.mode.title
 
 
 class ModeSerializer(serializers.ModelSerializer):

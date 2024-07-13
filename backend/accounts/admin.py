@@ -6,15 +6,18 @@ from .models import *
 
 class UserAdminConfig(UserAdmin):
     model = CustomUser
-    search_fields=('email','fullname','phone')
-    list_filter = ('email','fullname','phone','is_active','is_staff','is_customer','is_clinician')
-    list_display = ('email','fullname','phone','is_active','is_staff','is_customer','is_clinician')
+    search_fields = ('email', 'firstname', 'lastname', 'phone')
+    list_filter = ('email', 'firstname', 'lastname', 'phone', 'is_active',
+                   'is_staff', 'is_customer', 'is_clinician')
+    list_display = ('email', 'firstname', 'lastname', 'phone', 'is_active',
+                    'is_staff', 'is_customer', 'is_clinician')
     fieldsets = (
-        (None,{'fields':('email','fullname','IPPIS','department',)}),
-        ('Permissions',{'fields':('is_staff','is_active')}),
+        (None, {'fields': ('email', 'firstname',
+         'lastname', 'IPPIS', 'department',)}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
         # ('Personal')
     )
     ordering = ('email',)
 
+
 admin.site.register(CustomUser, UserAdminConfig)
-admin.site.register(Category)

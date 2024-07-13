@@ -1,100 +1,134 @@
-import React from 'react'
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const [isAuth, setIsAuth] = useState(false)
+  const [email, setEmail] = useState('')
+  const navigate = useNavigate()
+  
+  useEffect(() => {  
+      const checkAuth = () => {  
+      if (localStorage.getItem('access_token') !== null) {        
+          setIsAuth(true);
+          setEmail(localStorage.getItem('email'))
+      }else {
+        setIsAuth(false);
+        setEmail('');
+      }
+    } 
+    checkAuth();
+  }, [isAuth]);
+
+  const handleSignout = () => {
+    localStorage.clear()
+    setIsAuth(false); // Update state immediately
+    setEmail(''); // Clear email state
+    navigate('/')
+  }
+
   return (
     <>
-    {/* <!-- banner --> */}
-	<div id="home" className="w3ls-banner"> 
-		{/* <!-- header --> */}
-		<div className="header-w3layouts"> 
-			{/* <!-- Navigation --> */}
-			<nav className="navbar navbar-default navbar-fixed-top"> 
-				<div className="container">
-					<div className="navbar-header page-scroll">
-						<button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-							<span className="sr-only">Medical_care</span>
-							<span className="icon-bar"></span>
-							<span className="icon-bar"></span>
-							<span className="icon-bar"></span>
-						</button>
-						<h1><a className="navbar-brand" href="index.html">Medical Consult</a></h1>
-					</div> 
-					{/* <!-- Collect the nav links, forms, and other content for toggling --> */}
-					<div className="collapse navbar-collapse navbar-ex1-collapse">
-						<ul className="nav navbar-nav navbar-right cl-effect-15">
-							{/* <!-- Hidden li included to remove active className from about link when scrolled up past about section --> */}
-							<li className="hidden"><a className="page-scroll" href="#page-top"></a>	</li>
-							<li><a className="page-scroll scroll" href="#home">Home</a></li>
-							<li><a className="page-scroll scroll" href="#about">About</a></li>
-							<li><a className="page-scroll scroll" href="#services">Services</a></li>
-							<li><a className="page-scroll scroll" href="#team">Team</a></li>
-							<li className="dropdown">
-								<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-								<ul className="dropdown-menu">
-									<li><a className="page-scroll scroll" href="#laboratories">laboratories</a></li>
-									<li><a className="page-scroll scroll" href="#testimonials">Testimonials</a></li>
-								</ul>
-							</li>
-							<li><a className="page-scroll scroll" href="#blog">Blog</a></li>
-							<li><a className="page-scroll scroll" href="#contact">Contact</a></li>
-						</ul>
-					</div>
-					{/* <!-- /.navbar-collapse --> */}
-				</div>
-				{/* <!-- /.container --> */}
-			</nav>  
-		</div>	
-		{/* <!-- //header -->
-		<!--banner-->
-		<!--Slider--> */}
-			<div className="w3l_banner_info">
-				<div className="col-md-5 banner-form-agileinfo">
-					<img src="src/assets/images/alt1.png" alt="" />
-				</div>
-				<div className="col-md-7 slider">
-					<div className="callbacks_container">
-								<ul className="rslides" id="slider3">
-									<li>
-										<div className="slider_banner_info">
-											<h4>WE make healthy</h4>
-											<p>Medical school education and post graduate education empha -size thoroughness.The good physician treats the disease, great physician treats the patient who has the disease.</p>
-										</div>
+       {/* <!-- Spinner Start --> */}
+        {/* <div id="spinner" className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div className="spinner-border text-primary" style={{width: "3rem", height: "3rem"}} role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+        </div> */}
+        {/* <!-- Spinner End --> */}
 
-									</li>
-									<li>
-										<div className="slider_banner_info">
-											<h4>Medicine is a science</h4>
-											<p>The best doctor is the one you run to and can't find.We should be concerned not only about the health of individual patients, but also the health of our entire society.</p>
-										</div>
+        {/* <!-- Topbar Start --> */}
+        <div className="container-fluid bg-primary px-5 d-none d-lg-block">
+            <div className="row gx-0">
+                <div className="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                    <div className="d-inline-flex align-items-center" style={{height: "45px"}}>
+                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-twitter fw-normal"></i></a>
+                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-facebook-f fw-normal"></i></a>
+                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-linkedin-in fw-normal"></i></a>
+                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-instagram fw-normal"></i></a>
+                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i className="fab fa-youtube fw-normal"></i></a>
+                    </div>
+                </div>
+                <div className="col-lg-4 text-center text-lg-end">
+                    <div className="d-inline-flex align-items-center" style={{height: "45px"}}>
+                        { isAuth ? 
+                            <>
+                            <Link onClick={handleSignout}><small className="me-3 text-light"><i onClick={handleSignout} className="fa fa-sign-in-alt me-2"></i>Logout</small></Link>
+                            </>
+                            :
+                            <>
+                            <Link to="register"><small className="me-3 text-light"><i className="fa fa-user me-2"></i>Register</small></Link>
+                            <Link to="login"><small className="me-3 text-light"><i className="fa fa-sign-in-alt me-2"></i>Login</small></Link>
+                            </>
+                        }
+                        
+                        <div className="dropdown">
+                            <a href="#" className="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i className="fas fa-user-alt me-2"></i> {email}</small></a>
+                            <div className="dropdown-menu rounded">
+                                <a href="#" className="dropdown-item"><i className="fas fa-user-alt me-2"></i> My Profile</a>
+                                <a href="#" className="dropdown-item"><i className="fas fa-comment-alt me-2"></i> Inbox</a>
+                                <a href="#" className="dropdown-item"><i className="fas fa-bell me-2"></i> Notifications</a>
+                                <a href="#" className="dropdown-item"><i className="fas fa-cog me-2"></i> Account Settings</a>
+                                <Link onClick={handleSignout} className="dropdown-item"><i className="fas fa-power-off me-2"></i> Log Out</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/* <!-- Topbar End --> */}
 
-									</li>
-									<li>
-										<div className="slider_banner_info">
-											<h4>Nothing cures health</h4>
-											<p>Never go to a doctor whose office plants have died.You know what they call the fellow who finishes last in his medical school graduating className? They call him 'Doctor. </p>
-										</div>
+        {/* <!-- Navbar & Hero Start --> */}
+        <div className="container-fluid position-relative p-0">
+            <nav style={{backgroundColor:"grey"}} className="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" className="navbar-brand p-0">
+                    <h1 className="m-0">
+                      {/* <i className="fa fa-map-marker-alt me-3"></i> */}
+                      mediConsult
+                    </h1>
+                    {/* <!-- <img src="img/logo.png" alt="Logo"> --> */}
+                </a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span className="fa fa-bars"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarCollapse">
+                    <div className="navbar-nav ms-auto py-0">
+                        <Link to="/" className="nav-item nav-link active">Home</Link>
+                        <Link to="/about" className="nav-item nav-link">About</Link>
+                        <Link to="/services" className="nav-item nav-link">Services</Link>
+                        <Link to="/categories" className="nav-item nav-link">Categories</Link>
+                        <Link to="/" className="nav-item nav-link">Packages</Link>
+                        <Link to="/" className="nav-item nav-link">Blog</Link>
+                        <div className="nav-item dropdown">
+                            <a to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div className="dropdown-menu m-0">
+                                <Link to="/" className="dropdown-item">Destination</Link>
+                                <Link to="/" className="dropdown-item">Explore Tour</Link>
+                                <Link to="/" className="dropdown-item">Travel Booking</Link>
+                                <Link to="/" className="dropdown-item">Our Gallery</Link>
+                                <Link to="/" className="dropdown-item">Travel Guides</Link>
+                                <Link to="/" className="dropdown-item">Testimonial</Link>
+                                {/* <Link to="404.html" className="dropdown-item">404 Page</Link> */}
+                            </div>
+                        </div>
+                        <a to="contact.html" className="nav-item nav-link">Contact</a>
+                    </div>
+                    <a to="" className="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
+                </div>
+            </nav>
 
-									</li>
-									<li>
-										<div className="slider_banner_info">
-											<h4>We do best treatment</h4>
-											<p>Time is generally the best doctor.so well choose your best doctor before time lossesThe art of medicine consists in amusing the patient while nature cures the disease.</p>
-										</div>
-
-									</li>
-								</ul>
-					</div>
-				</div>
-				<div className="clearfix"></div>
-			{/* <!--//Slider--> */}
-			
-			</div>
-		{/* <!--//banner--> */}
-		
-	</div>	
-	{/* <!-- //banner -->  */}
+            
+        </div>
+        {/* <div className="container-fluid search-bar position-relative" style={{top: "-50%", transform: "translateY(-50%)"}}>
+            <div className="container">
+                <div className="position-relative rounded-pill w-100 mx-auto p-5" style={{background: "rgba(19, 53, 123, 0.8)"}}>
+                    <input className="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand" />
+                    <button type="button" className="btn btn-primary rounded-pill py-2 px-4 position-absolute me-2" style={{top: "50%", right: "46px", transform: "translateY(-50%)"}}>Search</button>
+                </div>
+            </div>
+        </div> */}
+        {/* <!-- Navbar & Hero End --> */}
     </>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
