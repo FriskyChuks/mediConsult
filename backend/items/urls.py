@@ -4,5 +4,5 @@ from .views import *
 
 
 urlpatterns = [
-    path('', CreateItemView.as_view())
+    path('', ListCreateItemView.as_view())
 ]

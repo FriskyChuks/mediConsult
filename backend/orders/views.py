@@ -1,7 +1,8 @@
 from rest_framework import status
 from rest_framework.generics import *
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import *
 
 from .serializers import *
 
@@ -9,19 +10,23 @@ from .serializers import *
 class OrdersListCreateView(ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class OrdersRetrieveUpdateView(RetrieveUpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class OrderDetailCreateView(CreateAPIView):
     queryset = OrderDetail.objects.all()
     serializer_class = OrderDetailSerializer
+    permission_classes = [IsAuthenticated]
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def order_details_views(request, order_id):
     order = Order.objects.filter(id=order_id)
     if not order:
@@ -35,3 +40,4 @@ def order_details_views(request, order_id):
 class DeliveryView(ListCreateAPIView):
     queryset = Delivery.objects.all()
     serializer_class = DeliverySerializer
+    permission_classes = (IsAuthenticated,)

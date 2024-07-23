@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
+import { useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import {SearchContext} from '../contexts/SearchContext'
 
 const NavBar = () => {
   const [isAuth, setIsAuth] = useState(false)
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
+
+  const { searchQuery, setSearchQuery } = useContext(SearchContext);
+
+  const handleSearchChange = (e) => {
+    // e.preventDefault()
+    setSearchQuery(e.target.value);
+    navigate('/search');
+  };
   
   useEffect(() => {  
       const checkAuth = () => {  
@@ -28,25 +38,26 @@ const NavBar = () => {
 
   return (
     <>
-       {/* <!-- Spinner Start --> */}
-        {/* <div id="spinner" className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div className="spinner-border text-primary" style={{width: "3rem", height: "3rem"}} role="status">
-                <span className="sr-only">Loading...</span>
-            </div>
-        </div> */}
-        {/* <!-- Spinner End --> */}
-
         {/* <!-- Topbar Start --> */}
         <div className="container-fluid bg-primary px-5 d-none d-lg-block">
             <div className="row gx-0">
-                <div className="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                <div className="col-lg-4 text-center text-lg-start mb-2 mb-lg-0">
                     <div className="d-inline-flex align-items-center" style={{height: "45px"}}>
                         <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-twitter fw-normal"></i></a>
                         <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-facebook-f fw-normal"></i></a>
                         <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-linkedin-in fw-normal"></i></a>
                         <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i className="fab fa-instagram fw-normal"></i></a>
-                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i className="fab fa-youtube fw-normal"></i></a>
+                        <a className="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i className="fab fa-youtube fw-normal"></i></a>  
                     </div>
+                </div>
+                <div className="navbar-search col-lg-4 mx-auto">
+                    <input
+                        className="form-control border-0 w-100 py-1 mt-2 ps-4 pe-5"
+                        type="text"
+                        placeholder="🔍 Search Item by name..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
                 </div>
                 <div className="col-lg-4 text-center text-lg-end">
                     <div className="d-inline-flex align-items-center" style={{height: "45px"}}>
@@ -64,11 +75,11 @@ const NavBar = () => {
                         <div className="dropdown">
                             <a href="#" className="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i className="fas fa-user-alt me-2"></i> {email}</small></a>
                             <div className="dropdown-menu rounded">
-                                <a href="#" className="dropdown-item"><i className="fas fa-user-alt me-2"></i> My Profile</a>
+                                <Link to="/auth/profile" className="dropdown-item"><i className="fas fa-user-alt me-2"></i> My Profile</Link>
                                 <a href="#" className="dropdown-item"><i className="fas fa-comment-alt me-2"></i> Inbox</a>
                                 <a href="#" className="dropdown-item"><i className="fas fa-bell me-2"></i> Notifications</a>
                                 <a href="#" className="dropdown-item"><i className="fas fa-cog me-2"></i> Account Settings</a>
-                                <Link onClick={handleSignout} className="dropdown-item"><i className="fas fa-power-off me-2"></i> Log Out</Link>
+                                <Link onClick={handleSignout} className="dropdown-item"><i className="fas fa-power-off me-2"></i> Logout</Link>
                             </div>
                         </div>
                     </div>
@@ -96,37 +107,36 @@ const NavBar = () => {
                         <Link to="/about" className="nav-item nav-link">About</Link>
                         <Link to="/services" className="nav-item nav-link">Services</Link>
                         <Link to="/categories" className="nav-item nav-link">Categories</Link>
-                        <Link to="/" className="nav-item nav-link">Packages</Link>
-                        <Link to="/" className="nav-item nav-link">Blog</Link>
+                        {/* <Link to="/" className="nav-item nav-link">Packages</Link> */}
+                        {/* <Link to="/" className="nav-item nav-link">Blog</Link> */}
                         <div className="nav-item dropdown">
-                            <a to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <a to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
                             <div className="dropdown-menu m-0">
-                                <Link to="/" className="dropdown-item">Destination</Link>
-                                <Link to="/" className="dropdown-item">Explore Tour</Link>
-                                <Link to="/" className="dropdown-item">Travel Booking</Link>
-                                <Link to="/" className="dropdown-item">Our Gallery</Link>
-                                <Link to="/" className="dropdown-item">Travel Guides</Link>
-                                <Link to="/" className="dropdown-item">Testimonial</Link>
+                                <Link to="/orders/place_order" className="dropdown-item">Place Order</Link>
+                                <Link to="/" className="dropdown-item">Active Orders</Link>
+                                <Link to="/" className="dropdown-item">Orders List</Link>
+                                {/* <Link to="/" className="dropdown-item">Our Gallery</Link> */}
+                                {/* <Link to="/" className="dropdown-item">Travel Guides</Link> */}
+                                {/* <Link to="/" className="dropdown-item">Testimonial</Link> */}
                                 {/* <Link to="404.html" className="dropdown-item">404 Page</Link> */}
                             </div>
                         </div>
-                        <a to="contact.html" className="nav-item nav-link">Contact</a>
+                        <Link to="/contact" className="nav-item nav-link">Contact</Link>
                     </div>
-                    <a to="" className="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
+                    <a to="" className="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Consultation</a>
                 </div>
             </nav>
-
+            <div className="bottomBar">
+                <input
+                    className="form-control border-0 rounded-pill w-100 py-1 ps-4 pe-5"
+                    type="text"
+                    placeholder="🔍 Search for items"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                />
+            </div>
             
         </div>
-        {/* <div className="container-fluid search-bar position-relative" style={{top: "-50%", transform: "translateY(-50%)"}}>
-            <div className="container">
-                <div className="position-relative rounded-pill w-100 mx-auto p-5" style={{background: "rgba(19, 53, 123, 0.8)"}}>
-                    <input className="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand" />
-                    <button type="button" className="btn btn-primary rounded-pill py-2 px-4 position-absolute me-2" style={{top: "50%", right: "46px", transform: "translateY(-50%)"}}>Search</button>
-                </div>
-            </div>
-        </div> */}
-        {/* <!-- Navbar & Hero End --> */}
     </>
   );
 };

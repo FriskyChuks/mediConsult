@@ -7,6 +7,12 @@
   z-index: 99999;
 }
 
+@media (max-width: 991px) {
+  .bottomBar {
+    background: var(--bs-primary) !important;
+    padding: 8px;
+  }
+}
 #spinner.show {
   transition: opacity 0.5s ease-out, visibility 0s linear 0s;
   visibility: visible;
@@ -14,6 +20,53 @@
 }
 /*** Spinner End ***/
 
+/***Login button at navigation**/
+.login_button {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10%;
+}
+.login_button:hover {
+  opacity: 60%;
+  color: white;
+}
+
+@media (min-width: 991px) {
+  .login_button {
+    display: none;
+  }
+}
+@media (min-width: 991px) {
+  .search-bar {
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+}
+@media (max-width: 771px) {
+  .place-order {
+    margin-top: 100px;
+  }
+}
+@media (max-width: 460px) {
+  .search-bar {
+    top: -10px;
+  }
+}
+.search-bar {
+  width: 350px;
+  transition: 0.5s;
+  /* transform: translateY(-50%); */
+}
+@media (max-width: 500px) {
+  #about-pictures {
+    display: none;
+  }
+}
 .back-to-top {
   position: fixed;
   right: 30px;
@@ -141,11 +194,6 @@
   color: var(--bs-secondary) !important;
 }
 
-@media (max-width: 768px) {
-  .topbar {
-    display: none;
-  }
-}
 /*** Topbar End ***/
 
 /*** Navbar ***/
@@ -198,6 +246,7 @@
 
 @media (min-width: 1200px) {
   .navbar .nav-item .dropdown-menu {
+    cursor: pointer;
     display: block;
     visibility: hidden;
     top: 100%;
@@ -363,13 +412,17 @@
   background-size: cover;
 }
 
-@media (max-width: 768px) {
-  .carousel-header .carousel-inner .carousel-item img,
-  .carousel-header .carousel-inner .carousel-item .carousel-caption {
-    height: 700px;
-    margin-top: -100px;
-  }
+/* @media (max-width: 768px) { */
+.carousel-header .carousel-inner .carousel-item img,
+.carousel-header .carousel-inner .carousel-item .carousel-caption,
+.carousel-header .carousel-slide {
+  height: 700px;
+  /* margin-top: -100px; */
+  /* } */
 
+  .carousel-slide {
+    height: 700px !important;
+  }
   .carousel-header {
     height: 700px !important;
   }
@@ -379,17 +432,17 @@
     opacity: 0;
   }
 
-  .search-bar {
+  /* .search-bar {
     margin-top: -100px;
     transition: 0.5s;
-  }
+  } */
 }
 /*** Carousel Hero Header End ***/
 
 /*** Single Page Hero Header Start ***/
 .bg-breadcrumb {
-  background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5)),
-    url(../img/breadcrumb-bg.jpg);
+  background: linear-gradient(rgba(19, 53, 123, 0.5), rgba(19, 53, 123, 0.5));
+  /* url(../img/breadcrumb-bg.jpg); */
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1202,6 +1255,14 @@
 .contact .container form .btn.btn-primary:hover {
   box-shadow: inset 1000px 0 0 0 var(--bs-light) !important;
   color: var(--bs-primary) !important;
+}
+.contact {
+  background: linear-gradient(rgba(19, 53, 123, 0.8), rgba(19, 53, 123, 0.8)),
+    url(../img/tour-booking-bg.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 /*** Contact End ***/
 

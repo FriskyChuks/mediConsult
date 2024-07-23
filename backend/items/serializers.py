@@ -4,6 +4,11 @@ from .models import Item
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Item
-        fields = ['item_category', 'title', 'description', 'price']
+        fields = ['category', 'title', 'description', 'price']
+
+    def get_category(self, obj):
+        return obj.item_category.title

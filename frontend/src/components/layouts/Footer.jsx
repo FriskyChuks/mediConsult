@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Footer = () => {
+    
+
   return (
     <>
     {/* <!-- Footer Start --> */}
@@ -57,7 +59,7 @@ const Footer = () => {
                                                 <option value="3">Greek</option>
                                                 <option value="3">New York</option>
                                             </select>
-                                            <label for="select1">English</label>
+                                            <label htmlFor="select1">English</label>
                                         </div>
                                     </form>
                                 </div>
@@ -70,7 +72,7 @@ const Footer = () => {
                                                 <option value="3">INR</option>
                                                 <option value="3">GBP</option>
                                             </select>
-                                            <label for="select1">$</label>
+                                            <label htmlFor="select1">$</label>
                                         </div>
                                     </form>
                                 </div>
@@ -96,10 +98,12 @@ const Footer = () => {
             <div className="container">
                 <div className="row g-4 align-items-center">
                     <div className="col-md-6 text-center text-md-end mb-md-0">
-                        <i className="fas fa-copyright me-2"></i><a className="text-white" href="#">Your Site Name</a>, All right reserved.
+                        {(new Date().getFullYear())} {" "}
+                        <i className="fas fa-copyright me-2"></i>  
+                        <a className="text-white" href="#">mediConsult</a>, All right reserved.
                     </div>
                     <div className="col-md-6 text-center text-md-start">
-                        Designed By <a className="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
+                        Designed By <a className="text-white" href="https://friskychuks.vercel.app">friskyTech</a> Frontend By <a href="">smooth-Tim</a>
                     </div>
                 </div>
             </div>
