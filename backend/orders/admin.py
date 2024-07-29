@@ -7,4 +7,5 @@ from .models import *
 admin.site.register(Order)
 admin.site.register(OrderDetail)
 admin.site.register(Delivery)
-admin.site.register(Mode)
+admin.site.register(DeliveryMode)
+admin.site.register(Cart)

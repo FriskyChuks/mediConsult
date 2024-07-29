@@ -13,7 +13,7 @@ class UserAdminConfig(UserAdmin):
                     'is_staff', 'is_customer', 'is_clinician')
     fieldsets = (
         (None, {'fields': ('email', 'firstname',
-         'lastname', 'IPPIS', 'department',)}),
+         'lastname',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         # ('Personal')
     )

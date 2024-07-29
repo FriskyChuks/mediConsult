@@ -27,7 +27,15 @@ class OrderDetail(models.Model):
         return f"{self.item} ({self.quantity}) | {self.price}"
 
 
-class Mode(models.Model):
+class Cart(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=1)
+    color = models.CharField(max_length=50, null=True, blank=True)
+    size = models.CharField(max_length=50, null=True, blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class DeliveryMode(models.Model):
     title = models.CharField(max_length=20)
 
     def __str__(self):
@@ -35,7 +43,7 @@ class Mode(models.Model):
 
 
 class Delivery(models.Model):
-    mode = models.ForeignKey(Mode, on_delete=models.CASCADE)
+    mode = models.ForeignKey(DeliveryMode, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     delivery_status = models.BooleanField(default=False)
     confirmed_by = models.ForeignKey(User, on_delete=models.CASCADE)

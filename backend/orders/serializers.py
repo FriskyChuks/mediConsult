@@ -45,5 +45,11 @@ class DeliverySerializer(serializers.ModelSerializer):
 
 class ModeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Mode
+        model = DeliveryMode
+        fields = '__all__'
+
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
         fields = '__all__'

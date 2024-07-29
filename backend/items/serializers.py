@@ -8,7 +8,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ['category', 'title', 'description', 'price']
+        fields = ['id', 'category', 'title', 'description', 'price']
 
     def get_category(self, obj):
         return obj.item_category.title

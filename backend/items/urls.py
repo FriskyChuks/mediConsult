@@ -4,5 +4,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('', ListCreateItemView.as_view())
+    path('', ItemListCreateView.as_view()),
+    path('item_detail/<pk>/', ItemRetrieveUpdateView.as_view())
 ]

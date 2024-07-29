@@ -41,3 +41,9 @@ class DeliveryView(ListCreateAPIView):
     queryset = Delivery.objects.all()
     serializer_class = DeliverySerializer
     permission_classes = (IsAuthenticated,)
+
+
+class CartListCreateView(ListCreateAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    permission_classes = (IsAuthenticated,)
