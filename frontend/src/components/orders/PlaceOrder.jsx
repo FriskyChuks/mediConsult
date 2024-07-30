@@ -60,7 +60,7 @@ export default function PlaceOrders({ baseURL }) {
             <td>
               <div className='d-flex align-items-center'>
                 <img
-                  src='/src/assets/img/item_default.JPEG'
+                  src='/src/assets/img/item_default.png'
                   alt=''
                   style={{ width: '45px', height: '45px' }}
                   className='rounded-circle'

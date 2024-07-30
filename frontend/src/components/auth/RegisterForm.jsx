@@ -56,22 +56,19 @@ export default function RegisterForm({ baseURL }) {
   const user = {firstname: firstname,lastname: lastname,email: email,phone: phone,
                 password: password,re_password: confirmPassword};
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Verify email and password
-    axios.get(`${baseURL}/accounts/get_user/${email}/${phone}/`)
+    await axios.get(`${baseURL}/accounts/get_user/${email}/${phone}/`)
       .then((res)=>{
-        console.log(res.data)
         if(res.data[0].email===email){
           setMsg("A User with this Email already exists!")
-          console.log(msg)
         } else if(res.data[0].phone===phone){
           setMsg("This Phone Number has already been used by another User!")
-          console.log(msg)
         } else{setMsg("")}
-      }).finally(()=>{
+      }).finally( async()=>{
         // Create User
-        axios.post(`${baseURL}/auth/users/`,user).then(()=>{
+        await axios.post(`${baseURL}/auth/users/`,user).then(()=>{
             navigate('/login')
         })
       })

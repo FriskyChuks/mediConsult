@@ -936,6 +936,10 @@
   transform: scale(1.2);
 }
 
+.nav-item .nav-link.active {
+  background: rgba(19, 53, 123, 0.8);
+}
+
 .gallery .gallery-item:hover .gallery-content {
   background: rgba(19, 53, 123, 0.8);
 }

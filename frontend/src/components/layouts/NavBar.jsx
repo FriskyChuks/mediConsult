@@ -1,26 +1,32 @@
 import { useState, useEffect } from "react";
 import { useContext } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {SearchContext} from '../contexts/SearchContext'
+import { CartContext } from "../contexts/CartContextProvider";
 
 const NavBar = () => {
+  const { data } = useContext(CartContext);
+  const { search, user } = useContext(SearchContext);
+  const [ searchQuery, setSearchQuery ] = search;
+  const [email, setEmail] = user
   const [isAuth, setIsAuth] = useState(false)
-  const [email, setEmail] = useState('')
   const navigate = useNavigate()
-
-  const { searchQuery, setSearchQuery } = useContext(SearchContext);
 
   const handleSearchChange = (e) => {
     // e.preventDefault()
     setSearchQuery(e.target.value);
     navigate('/search');
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem('access_token')){setEmail(localStorage.getItem('email'))}
+  })
   
   useEffect(() => {  
       const checkAuth = () => {  
       if (localStorage.getItem('access_token') !== null) {        
           setIsAuth(true);
-          setEmail(localStorage.getItem('email'))
+        //   setEmail(localStorage.getItem('email'))
       }else {
         setIsAuth(false);
         setEmail('');
@@ -52,7 +58,7 @@ const NavBar = () => {
                 </div>
                 <div className="navbar-search col-lg-4 mx-auto">
                     <input
-                        className="form-control border-0 w-100 py-1 mt-2 ps-4 pe-5"
+                        className="form-control border-0 w-100 py-1 mt-1 ps-4 pe-5"
                         type="text"
                         placeholder="🔍 Search Item by name..."
                         value={searchQuery}
@@ -61,7 +67,7 @@ const NavBar = () => {
                 </div>
                 <div className="col-lg-4 text-center text-lg-end">
                     <div className="d-inline-flex align-items-center" style={{height: "45px"}}>
-                        { isAuth ? 
+                        { email ? 
                             <>
                             <Link onClick={handleSignout}><small className="me-3 text-light"><i onClick={handleSignout} className="fa fa-sign-in-alt me-2"></i>Logout</small></Link>
                             </>
@@ -103,25 +109,23 @@ const NavBar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarCollapse">
                     <div className="navbar-nav ms-auto py-0">
-                        <Link to="/" className="nav-item nav-link active">Home</Link>
-                        <Link to="/about" className="nav-item nav-link">About</Link>
-                        <Link to="/services" className="nav-item nav-link">Services</Link>
-                        <Link to="/categories" className="nav-item nav-link">Categories</Link>
+                        <NavLink to="/" className="nav-item nav-link">Home</NavLink>
+                        <NavLink to="/about" className="nav-item nav-link">About</NavLink>
+                        <NavLink to="/services" className="nav-item nav-link">Services</NavLink>
+                        <NavLink to="/store" className="nav-item nav-link">Stores</NavLink>
                         {/* <Link to="/" className="nav-item nav-link">Packages</Link> */}
                         {/* <Link to="/" className="nav-item nav-link">Blog</Link> */}
                         <div className="nav-item dropdown">
                             <a to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Orders</a>
                             <div className="dropdown-menu m-0">
                                 <Link to="/orders/place_order" className="dropdown-item">Place Order</Link>
-                                <Link to="/" className="dropdown-item">Active Orders</Link>
                                 <Link to="/" className="dropdown-item">Orders List</Link>
-                                {/* <Link to="/" className="dropdown-item">Our Gallery</Link> */}
-                                {/* <Link to="/" className="dropdown-item">Travel Guides</Link> */}
-                                {/* <Link to="/" className="dropdown-item">Testimonial</Link> */}
-                                {/* <Link to="404.html" className="dropdown-item">404 Page</Link> */}
                             </div>
                         </div>
-                        <Link to="/contact" className="nav-item nav-link">Contact</Link>
+                        <NavLink to="/contact" className="nav-item nav-link">Contact</NavLink>
+                        <NavLink to="/orders/cart" className="nav-item nav-link">
+                            <i className="bi bi-cart">{data.length}Cart</i>
+                        </NavLink>
                     </div>
                     <a to="" className="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Consultation</a>
                 </div>

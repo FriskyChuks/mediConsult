@@ -5,10 +5,10 @@ export const SearchContext = createContext();
 
 export const SearchProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [email, setEmail] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   return (
-    <SearchContext.Provider value={{ searchQuery, setSearchQuery, email, setEmail }}>
+    <SearchContext.Provider value={{search:[searchQuery, setSearchQuery], user:[userEmail, setUserEmail]}}>
       {children}
     </SearchContext.Provider>
   );

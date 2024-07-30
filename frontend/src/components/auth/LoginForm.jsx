@@ -1,36 +1,49 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginForm({ baseURL }) {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const phone = '080'
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
+  const activationMsg = (
+    <span>
+      Your account has not been activated; Check your mail for activation link or
+      Click <Link to='/auth/resend_activation'>here</Link> to resend Activation Link!
+    </span>
+  );
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {email:email, password:password}
 
-    axios.get(`${baseURL}/accounts/get_user/${email}/${phone}/`).then((res)=>{
-        if(res.data[0].is_active===false){setMsg("You're acoount has not been verified, please check your mail and confirm your account")}
-    })
+    const checkUser = await axios.get(`${baseURL}/accounts/get_user/${email}/${phone}/`)
+
+    if(checkUser.data.length<1){
+      setMsg('This user does not exist')
+      return msg
+    } else
+      if(checkUser.data[0].is_active===false){
+        setMsg(activationMsg)
+        return msg
+      }
 
     // GENERATE TOKEN
-    const data = await axios.post(`${baseURL}/auth/jwt/create/`, user).then((response)=>{
-      localStorage.setItem('refresh_token', response.data.refresh)
-      localStorage.setItem('access_token', response.data.access)
-    })
+    const res = await axios.post(`${baseURL}/auth/jwt/create/`, user)
+    localStorage.setItem('refresh_token', res.data.refresh)
+    localStorage.setItem('access_token', res.data.access)
     const access = localStorage.getItem('access_token')
+    console.log(access)
     if(access){
         axios.get(`${baseURL}/auth/users/me/`,{
           headers: {
             Authorization: `FRISKY ${access}`
           }
         }).then((res)=>{
-          console.log(res.data)
           localStorage.setItem('firstname',res.data.firstname)
           localStorage.setItem('lastname',res.data.lastname)
           localStorage.setItem('email',res.data.email)

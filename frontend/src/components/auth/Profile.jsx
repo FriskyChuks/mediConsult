@@ -25,8 +25,7 @@ const Profile = ({baseURL, getUserInfo}) => {
         e.preventDefault
         await axios.patch(`${baseURL}/auth/users/me/`,userDate, {
             headers: {Authorization: `FRISKY ${token}`}
-        }).then((res=>{
-            console.log(res.data)
+        }).then((()=>{
             setMsg("Updated Successfully")
         })).finally(()=>{
             localStorage.setItem('firstname',firstname)

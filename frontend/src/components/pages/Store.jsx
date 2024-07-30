@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Categories = () => {
+const Store = () => {
   return (
     <>
     <div className="container-fluid destination py-5">
             <div className="container py-5">
                 <div className="mx-auto text-center mb-5" style={{maxWidth: "900px"}}>
-                    <h5 className="section-title px-3">Destination</h5>
-                    <h1 className="mb-0">Popular Destination</h1>
+                    <h5 className="section-title px-3">Items</h5>
+                    <h1 className="mb-0">Popular Items</h1>
                 </div>
                 <div className="tab-class text-center">
                     <ul className="nav nav-pills d-inline-flex justify-content-center mb-5">
@@ -313,4 +313,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default Store
