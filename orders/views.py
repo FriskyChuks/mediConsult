@@ -26,12 +26,6 @@ def create_orders_view(request):
     return Response({"id": instance.id, "customer_id": instance.customer_id})
 
 
-class OrdersRetrieveUpdateView(RetrieveUpdateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-
 class OrdersRetrieveUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -47,13 +41,7 @@ class OrderDetailCreateView(CreateAPIView):
 class OrderDetailRetrieveUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     queryset = OrderDetail.objects.all()
     serializer_class = OrderDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-
-class OrderDetailUpdateView(UpdateAPIView):
-    queryset = OrderDetail.objects.all()
-    serializer_class = OrderDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 
 @api_view(['GET'])

@@ -69,10 +69,14 @@ export default function RegisterForm({ baseURL }) {
         }
       }).finally( async()=>{
         // Create User
-        await axios.post(`${baseURL}/auth/users/`,user).then(()=>{
-          showMessage("Registration Successful", 'success')
-          navigate('/login')
-        })
+        try {
+          await axios.post(`${baseURL}/auth/users/`,user).then(()=>{
+            showMessage("Registration Successful", 'success')
+            navigate('/login')
+          })
+        } catch (err) {
+          showMessage("There was an error creating your record", 'error')
+        }
       })
   };
 
