@@ -169,7 +169,7 @@ const NavBar = ({ baseURL }) => {
                                         <>
                                             <div className="dropdown-menu m-0">
                                                 <Link to="/application_list" className="dropdown-item">Application List</Link>
-                                                <Link to="/orders_list" className="dropdown-item">Orders List</Link>
+                                                <Link to="/orders" className="dropdown-item">Orders List</Link>
                                             </div>
                                         </> :
                                         <div className="dropdown-menu m-0">
@@ -188,7 +188,7 @@ const NavBar = ({ baseURL }) => {
                                     <>
                                         <div className="dropdown-menu m-0">
                                             <Link to="/place_order" className="dropdown-item">Place Order</Link>
-                                            <Link to="/orders" className="dropdown-item">My Orders</Link>
+                                            <Link to="/orders_list" className="dropdown-item">My Orders</Link>
                                         </div> 
                                     </> : 
                                     <div className="dropdown-menu m-0">

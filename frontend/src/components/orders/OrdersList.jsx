@@ -8,6 +8,7 @@ const OrdersList = ({ baseURL }) => {
     const [data, setData] = useState([])
     const navigate = useNavigate()
     const token = localStorage.getItem('access_token')
+    const userId = localStorage.getItem('user_id')
 
   if(token === null){                            
       navigate('/login')
@@ -17,9 +18,9 @@ const OrdersList = ({ baseURL }) => {
         await api.get(`${baseURL}/orders/`, {
                 headers: {"Authorization": `FRISKY ${token}`}
             }).then(res=>{
-                setData(res.data)
+              const filteredOrders = res.data.filter((order)=>order.customer === parseInt(userId))
+              setData(filteredOrders)
             })
-            console.log(data)
       }
     
       useEffect(()=>{

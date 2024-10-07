@@ -9,6 +9,7 @@ class Order(models.Model):
     VAT = models.DecimalField(
         decimal_places=2, max_digits=12, default=00.00, null=True, blank=True)
     order_date = models.DateTimeField(auto_now_add=True)
+    billed = models.BooleanField(default=False)
     processing = models.BooleanField(default=False)
     dispatch_date = models.DateField(null=True, blank=True)
 

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // base: '/static/',  // This ensures all assets (including images) are served from /static/
+  base: '/static/',  // This ensures all assets (including images) are served from /static/
   build: {
     outDir: '../static/',
     assetsDir: 'assets',

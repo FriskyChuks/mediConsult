@@ -7,6 +7,7 @@ export default function Orders({ baseURL }) {
   const [data, setData] = useState([])
   const navigate = useNavigate()
   const token = localStorage.getItem('access_token')
+  const userGroup = localStorage.getItem('user_group')
 
   if(token === null){                            
       navigate('/login')
@@ -18,8 +19,12 @@ export default function Orders({ baseURL }) {
                   headers: {"Authorization": `FRISKY ${token}`}
                 })
     if (res.data){
-      const filteredOrders = res.data.filter((order)=>order.customer === parseInt(userId))
-      setData(filteredOrders)
+      if (userGroup === 'manager') {
+        setData(res.data)
+      } else {
+        const filteredOrders = res.data.filter((order)=>order.customer === parseInt(userId))
+        setData(filteredOrders)
+      }
     }
     
   }

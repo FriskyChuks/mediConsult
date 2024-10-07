@@ -29,4 +29,4 @@ class ApplicationRequest(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.applicant
+        return self.applicant.email

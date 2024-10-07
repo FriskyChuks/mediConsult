@@ -123,7 +123,7 @@ const OrderDetails = ({ baseURL }) => {
          // Wait for all the update requests to complete
         await Promise.all(updatePromises);
 
-        await api.patch(`${baseURL}/orders/update_delete_order/${id}/`, {processing:true}, {
+        await api.patch(`${baseURL}/orders/update_delete_order/${id}/`, {billed:true}, {
             headers: { "Authorization": `FRISKY ${accessToken}` }
           });
 
@@ -191,6 +191,7 @@ const OrderDetails = ({ baseURL }) => {
                                         <input type="number" className='form-control'
                                             value={order.quantity}
                                             onChange={(e) => handleChange(index, 'quantity', e.target.value)}
+                                            readOnly={userGroup === 'manager' ? false : true}
                                         />
                                     </div>
                                 </td>
@@ -198,6 +199,7 @@ const OrderDetails = ({ baseURL }) => {
                                     <input type="number" className='form-control' 
                                         value={order.price}
                                         onChange={(e) => handleChange(index, 'price', e.target.value)}
+                                        readOnly={userGroup === 'manager' ? false : true}
                                     />
                                 </td>
                                 <td className="text-center">
@@ -205,16 +207,17 @@ const OrderDetails = ({ baseURL }) => {
                                 </td>
                                 <td className="text-center">
                                     {userGroup === 'manager' ? 
-                                    !order.available ? 
-                                    <i className="fa-solid fa-ban" title='Click to Enable Item'
-                                        onClick={() => OrderDetailAvailability(order.id)}></i> 
-                                    : 
-                                    <i className="fa-solid fa-check" title='Click to Disable Item'
-                                        onClick={() => OrderDetailAvailability(order.id)}></i>
+                                        (!order.available ? 
+                                            <i className="fa-solid fa-ban" title='Click to Enable Item'
+                                                onClick={() => OrderDetailAvailability(order.id)}></i> 
+                                            : 
+                                            <i className="fa-solid fa-check" title='Click to Disable Item'
+                                                onClick={() => OrderDetailAvailability(order.id)}></i>
+                                        )
                                     :
-                                    <i className="fa fa-trash" style={{color:'red'}}
-                                        onClick={() => DeleteOrderDetail(order.id)}
-                                    ></i>
+                                        <i className="fa fa-trash" style={{color:'red'}}
+                                            onClick={() => DeleteOrderDetail(order.id)}
+                                        ></i>
                                     }
                                 </td>
                             </tr>
@@ -232,14 +235,15 @@ const OrderDetails = ({ baseURL }) => {
 
             <div className="shopping-cart-footer"><br />
                 <div className="column">
-                    <Link className="btn btn-outline-secondary" to='/orders_list'>
+                    <Link className="btn btn-outline-secondary" to='/orders'>
                         Back to Orders
                     </Link>
-                    <Link className="btn btn-success" to="" style={{float:"right"}}
-                      onClick={handleSave}
-                    >
-                        Process Order
-                    </Link>
+                    {userGroup === 'manager' ?
+                        <Link className="btn btn-success" to="" style={{float:"right"}}
+                        onClick={handleSave}
+                      > Process Order
+                      </Link> : ""
+                    }
                 </div>
             </div>
         </div>

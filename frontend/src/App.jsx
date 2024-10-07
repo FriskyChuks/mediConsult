@@ -56,6 +56,7 @@ const App = () => {
       <BrowserRouter>
       <MessageProvider>
         <NavBar baseURL={baseURL} usersList={users} />
+        <br />
         <MessageModal />
         <main>
           <Routes>
