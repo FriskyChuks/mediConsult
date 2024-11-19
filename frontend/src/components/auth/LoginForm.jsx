@@ -31,14 +31,17 @@ export default function LoginForm({ baseURL, loading, setLoading }) {
         if(checkUser.data.length<1){
           showMessage('This user does not exist','error');
           setLoading(false)
+          return loading
         } else
           if(checkUser.data[0].is_active===false){
             showMessage(activationMsg)
             setLoading(false)
+            return loading
           }
     }catch (error){
         showMessage('An Error has Occured. Try again', 'error')
         setLoading(false)
+        return loading
     }
 
     // GENERATE TOKEN
@@ -47,6 +50,7 @@ export default function LoginForm({ baseURL, loading, setLoading }) {
             if(!res) {
               showMessage('This user does not exist','error');
               setLoading(false)
+              return loading
             } else {
               localStorage.setItem('refresh_token', res.data.refresh)
               localStorage.setItem('access_token', res.data.access)
@@ -73,6 +77,7 @@ export default function LoginForm({ baseURL, loading, setLoading }) {
       } catch {
         showMessage('Authentication failed!','error');
         setLoading(false)
+        return loading
     }
     
     

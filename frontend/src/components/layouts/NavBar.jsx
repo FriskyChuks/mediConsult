@@ -13,7 +13,6 @@ const NavBar = ({ baseURL }) => {
   const [userGroup, setUserGroup] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [initials, setInitials] = useState('')
 
   const MessageArray = ["timothy"]
 
@@ -28,9 +27,6 @@ const NavBar = ({ baseURL }) => {
         setUserGroup(localStorage.getItem('user_group'))
         setFirstName(localStorage.getItem('firstname'))
         setLastName(localStorage.getItem('lastname'))
-        
-        setInitials(firstName.charAt(0).toUpperCase()+"."+ lastName.charAt(0).toUpperCase())
-
     }
   },)
 
@@ -98,7 +94,21 @@ const NavBar = ({ baseURL }) => {
                         <div className="d-inline-flex align-items-center" style={{height: "45px"}}>
                             { email ? 
                                 <>
-                                <Link onClick={handleSignout}><small className="me-3 text-light"><i onClick={handleSignout} className="fa fa-sign-in-alt me-2"></i>Logout</small></Link>
+                                <Link style={{color:"white", marginRight:"15px"}}>
+                                { MessageArray && MessageArray.length > 0 ? (
+                                            <Link to="chat_list" style={{padding:"4px"}}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-envelope-arrow-down-fill" viewBox="0 0 16 16">
+                                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zm.192 8.159 6.57-4.027L8 9.586l1.239-.757.367.225A4.49 4.49 0 0 0 8 12.5c0 .526.09 1.03.256 1.5H2a2 2 0 0 1-1.808-1.144M16 4.697v4.974A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-1.965.45l-.338-.207z"/>
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-1.646a.5.5 0 0 1-.722-.016l-1.149-1.25a.5.5 0 1 1 .737-.676l.28.305V11a.5.5 0 0 1 1 0v1.793l.396-.397a.5.5 0 0 1 .708.708z"/>
+                                          </svg></Link>
+                                        ) : (
+                                           <Link to="chat_list" style={{padding:"4px"}}>
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-envelope" viewBox="0 0 16 16">
+  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+</svg>
+</Link>      ) 
+                                        }
+                                <Link to="/chat_list" style={{color:"white", textDecoration:"none"}}>Inbox</Link>
+                                </Link>
                                 <div className="dropdown">
                                 <a href="#" className="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i className="fas fa-user-alt me-2"></i> {email}</small></a>
                                 <div className="dropdown-menu rounded">
@@ -137,8 +147,8 @@ const NavBar = ({ baseURL }) => {
                             <div className="d-flex gap-2">
                                 <div className="dropdown">
                                     <a href="#" className="dropdown-toggle text-light" data-bs-toggle="dropdown">
-                                        <span><i className="fas fa-user-alt me-2"></i> 
-                                            {initials}
+                                        <span><i className="fas fa-user-alt me-2 text-primary"></i> 
+                                            {firstName}
                                         </span>
                                     </a>
                                     <div className="dropdown-menu rounded">
@@ -149,19 +159,20 @@ const NavBar = ({ baseURL }) => {
                                         <Link onClick={handleSignout} className="dropdown-item"><i className="fas fa-power-off me-2"></i> Logout</Link>
                                     </div>
                                 </div>
-                                <button type="button" className="btn btn-primary">
-                                    <Link to="/chat_list">
+                                    <div style={{marginLeft:"8px"}}>
                                         { MessageArray && MessageArray.length > 0 ? (
-                                            <i className="fa-solid fa-envelope-open-text" style={{color:"green"}}
-                                                onClick={()=>navigate("chat_list")}>
-                                            </i>
-                                            // <i className="bi bi-envelope-arrow-down-fill"></i>
-                                            ) : (
-                                                <i className="bi bi-envelope-fill" onClick={()=>navigate("chat_list")}></i>
-                                            )
+                                            <Link to="chat_list"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#1b5454" class="bi bi-envelope-arrow-down-fill" viewBox="0 0 16 16">
+                                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zm.192 8.159 6.57-4.027L8 9.586l1.239-.757.367.225A4.49 4.49 0 0 0 8 12.5c0 .526.09 1.03.256 1.5H2a2 2 0 0 1-1.808-1.144M16 4.697v4.974A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-1.965.45l-.338-.207z"/>
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-1.646a.5.5 0 0 1-.722-.016l-1.149-1.25a.5.5 0 1 1 .737-.676l.28.305V11a.5.5 0 0 1 1 0v1.793l.396-.397a.5.5 0 0 1 .708.708z"/>
+                                          </svg></Link>
+                                        ) : (
+                                           <Link to="chat_list">
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+</svg>
+</Link>      )
                                         }
-                                    </Link>
-                                </button>
+                                    </div>
                             </div>
                                     :
                             <>

@@ -5,7 +5,7 @@ import api from '../../AxiosInstance';
 import { useMessage } from "../contexts/MessageContext";
 
 const RaisePrescription = ({ baseURL, usersList }) => {
-  const {id} = useParams()
+    const {id} = useParams()
     const { showMessage } = useMessage();
     const accessToken = localStorage.getItem('access_token')
     const customer = usersList.filter(user => parseInt(user.id) === parseInt(id))[0]
@@ -48,7 +48,6 @@ const RaisePrescription = ({ baseURL, usersList }) => {
           ...prevPrescriptions,
           newPrescription
         ]);
-        console.log(prescriptions)
         
         // Clear the input fields after adding
         setSelectedType('');
@@ -89,11 +88,10 @@ const RaisePrescription = ({ baseURL, usersList }) => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
+    <br />
     <div className="container">
       <h2 className="text-center">Prescription Form</h2><br />
+      <h5>{customer.firstname} {customer.lastname}</h5> <br />
       <form className="row g-3 align-items-center">
         <div className="row mb-2">
         <div className="col-md-2">

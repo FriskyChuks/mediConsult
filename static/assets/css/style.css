@@ -10,6 +10,25 @@
   }
 }
 
+@media (max-width: 991px){
+  .message-sidebar{
+    display: none;
+  }
+}
+
+.current-user{
+  align-content: right;
+  align-self: right;
+  /* float: left; */
+  width: auto;
+}
+
+.receiver{
+  align-content: left;
+  align-self: left;
+  /* float: right; */
+  width: auto;
+}
 .prescription-item {
   background-color: #f8f9fa;
   padding: 10px;

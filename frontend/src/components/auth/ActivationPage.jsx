@@ -19,7 +19,7 @@ const ActivationPage = ({ baseURL }) => {
           token
         });
         showMessage('Account Activated Successfully, Login to continue', 'success')
-        navigate('/login')
+        return navigate('/login')
       } catch (error) {
         showMessage('Error Activating your account, please try again:', 'error')
         // console.error('Activation error:', error);

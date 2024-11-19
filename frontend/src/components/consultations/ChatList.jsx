@@ -64,7 +64,7 @@ const ChatList = ({ baseURL }) => {
                                 <hr className="d-block d-lg-none mt-1 mb-0" />
                             </div>
                             <div className="col-12 col-lg-7 col-xl-9">
-                                <div className="py-2 px-4 border-bottom d-none d-lg-block">
+                                {/* <div className="py-2 px-4 border-bottom d-none d-lg-block">
                                     <div className="d-flex align-items-center py-1">
                                         <div className="position-relative">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar3.png" className="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40" />
@@ -72,12 +72,10 @@ const ChatList = ({ baseURL }) => {
                                         <div className="flex-grow-1 pl-3">
                                             <div className="text-muted small"><em>Typing...</em></div>
                                         </div>
-                                        <div>
-                                        </div>
                                     </div>
-                                </div>
+                                </div> */}
 
-                                <div className="position-relative">
+                                <div className="position-relative text-center">
                                     <div className="chat-messages p-4">
                                         <h3><i>Select a user to start chatting</i></h3>
                                     </div>
